@@ -1,0 +1,7 @@
+class Constants:
+	MIN_SCREEN_SIZE = MIN_SCREEN_HEIGHT, MIN_SCREEN_WIDTH = 300, 300
+	AUDIO_FREQUENCY = 44100
+
+	class Signal:
+		HI = 32767
+		LO = -32768
