@@ -8,9 +8,11 @@ from constants import Constants
 class Waveform:
     @staticmethod
     def wave_of_hz(hz: float, amplitude: float, wave: Callable[[float], int | float]) -> pg.mixer.Sound:
-        x = np.linspace(0, hz * 2, Constants.AUDIO_FREQUENCY)
+        samples = int(Constants.AUDIO_FREQUENCY / hz) - 1
+        x = np.linspace(0, 2, samples, endpoint=False)
+        # x = np.linspace(0, hz * 2, Constants.AUDIO_FREQUENCY)
         f_x = np.array([wave(value) * amplitude for value in x]).astype(np.int16)
-        stereo_wave = np.repeat(f_x.reshape(Constants.AUDIO_FREQUENCY, 1), Constants.AUDIO_CHANNELS, axis=1)
+        stereo_wave = np.repeat(f_x.reshape(samples, 1), Constants.AUDIO_CHANNELS, axis=1)
         return pg.sndarray.make_sound(stereo_wave)
 
     @staticmethod
